@@ -1,8 +1,18 @@
+#-------------------------------------------------------------------------------
+# Filename: create_configurations.py
+# Description: creates monte carlo configurations for the ising lattice gauge
+# theory. 
+# Authors: Mark H Fischer
+#-------------------------------------------------------------------------------
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-N=16
-J=1.
+N=16 #size of the system is NxN
+J=1. #only parameter of the Hamiltonian
+
+N_low = 2 #number of configurations at low (=0) temperature
+N_high= 2 #number of configurations at high (=np.inf) temperature
 
 def initialize():
     '''
@@ -110,17 +120,15 @@ def vertex_update(spins):
     spins[i_left, j_up, 1]*=-1
 
 
-N_low = 2 #number of configurations at low (=0) temperature
-N_high= 2 #number of configurations at high (=np.inf) temperature
 Neq = 100000
 Nupdate = N**2
 
 configs = []
 labels = []
     
-spins = initialize()
 
 # First create some zero-temperature configurations
+spins = initialize()
 not_yet = True
 i=0
 while not_yet:
