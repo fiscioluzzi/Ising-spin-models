@@ -8,20 +8,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-N=16 #size of the system is NxN
-J=1. #only parameter of the Hamiltonian
+N=16        #size of the system is NxN
+J=1.        #only parameter of the Hamiltonian
 
-N_low = 2 #number of configurations at low (=0) temperature
-N_high= 2 #number of configurations at high (=np.inf) temperature
+N_low = 2   #number of configurations at low (=0) temperature
+N_high= 2   #number of configurations at high (=np.inf) temperature
 
 def initialize():
     '''
-    returns:
-        random spin configuration with format NxNx2 where
-
-    note:
-        i,j denotes the plaquette to the right / up from vertex i,j and xy usually denotes
+    Initializes a random spin configuration on a square lattice
+    i,j denotes the plaquette to the right / up from vertex i,j and xy usually denotes
         the spin at + x/2 or + y/2 to the center.
+
+    Returns 
+    -------
+    Random spin configuration with format NxNx2 where
     '''
 
     spins = 2*np.random.randint(2, size=((N, N,2))) - np.ones((N,N,2))
@@ -29,11 +30,14 @@ def initialize():
 
 def total_energy(spins):
     '''
-    returns:
-        total energy of the spin configuration
+    Parameters
+    ----------
+    spins  :  int
+        spin configuration, dimension is NxNx2
 
-    input:
-        spins     :  spin configuration
+    Returns
+    -------
+    Total energy of the spin configuration 
     '''
 
     N = np.shape(spins)[0]
@@ -49,17 +53,30 @@ def total_energy(spins):
 
 def dE(spins, i, j, xy):
     '''
-    returns:
-        energy difference after flipping the 'xy' spin at plaquette ('i','j')
-
-    note:
-        energy before flipping:
+    Calculates the energy difference of the current configuration compared to
+    flipping the 'xy' spin at plaquette (i,j).
+    
+    Note:
+    energy before flipping
           for x spin:
             s(i,j)_x * [s(i-1,j)_x * s(i,j-1)_y * s(i,j)_y + s(i+1,j)_x * s(i+1,j-1)_y * s(i+1,j)_y]
           for y spin:
             s(i,j)_y * [s(i-1,j)_x * s(i,j-1)_y * s(i,j)_x + s(i-1,j+1)_x * s(i,j+1)_y * s(i,j+1)_x]
 
         after flipping, energy is -s(i,j)*[...] -> difference is 2*s(i,j)*[...]
+    
+    Parameters:
+    ----------
+    spins  :  int
+        spin configuration, dimension is NxNx2
+    i, j: int 
+        plaquette at which to flip a spin, has to be in [0, N)
+    xy: int
+        which spin to flip ({0, 1})
+
+    Returns
+    -------
+    Energy difference after flipping the x or y spin  spin at plaquette ('i','j')
     '''
 
     i_right = (i+1)%N
@@ -83,11 +100,14 @@ def dE(spins, i, j, xy):
 
 def single_spin_update(spins, T):
     '''
-    performs a single step in a Metropolis single-spin update
+    Performs a single step in a Metropolis single-spin update.
 
-    input:
-        spins  :  spin configuration
-        T      :  temperature for the probability
+    Parameters
+    ----------
+    spins  :  int
+        spin configuration, dimension is NxNx2
+    T      :  double
+        temperature for the probability
     '''
 
     # first, choose the plaquette
@@ -105,8 +125,8 @@ def single_spin_update(spins, T):
 
 def vertex_update(spins):
     '''
-    performs a vertex update, i.e., flipps all the spins around the vertex (i,j)
-    Since this update does not change the energy, it's performed with probability 1.
+    Performs a vertex update, i.e., flipps all the spins around the vertex (i,j)
+    Since this update does not change the energy, it is performed with probability 1.
     '''
 
     # pick a vertex
