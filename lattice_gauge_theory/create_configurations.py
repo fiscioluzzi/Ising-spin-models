@@ -148,9 +148,13 @@ labels = []
     
 
 # First create some zero-temperature configurations
+# This is admittadly done in a rather stupid way, since one could simply start
+# from a fully polarized state and go from there.
+
 spins = initialize()
 not_yet = True
 i=0
+
 while not_yet:
     single_spin_update(spins, 0)
     vertex_update(spins)
@@ -166,6 +170,9 @@ for i in range(N_low*Nupdate):
 
 
 # now for infinite temperature
+# Again, this could be much faster simply creating fully random configurations.
+# However, at least this allows for sampling any temperature...
+
 spins = initialize()
 for _ in range(Neq):
     single_spin_update(spins, np.inf)
