@@ -7,8 +7,9 @@ The following models are treated
 * Ising Square Ice Model
 * Ising Lattice Gauge Theory
 
-Finally, I have also added some files regarding the Aubry-Andre model (also treated in the above mentioned publication)
+Finally, I have also added some files regarding the Aubry-Andre model (I know it is not a spin model, but it is also treated in the above mentioned publication)
 
 Disclaimers:
-* This is work in progress, so don't count on anything just yet.
+* First and foremost, this is me fooling around. So no guarantee for anything here.
 * The Monte Carlo sampling that I have implemented is very much ad-hoc. Should most certainly not be used for legitimate scientific computations.
+* I haven't managed to get the neural network to distinguish high- and low-temperature states for the square-ice model yet :(
