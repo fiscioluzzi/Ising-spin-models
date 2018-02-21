@@ -1,9 +1,18 @@
+#-------------------------------------------------------------------------------
+# Filename: create_configurations.py
+# Description: creates monte carlo configurations for the Aubry-Andre model. The
+# output is then saved in 'labels_L_N_phi_ph.txt' and 'configs_L_N_phi_ph.txt'. Note that for
+# each lambda in 'labels', there is a line of length N in configs.
+# theory. 
+# Authors: Mark H Fischer
+#-------------------------------------------------------------------------------
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import linalg
 from scipy import sparse
 
-N = 200
+N = 100
 t = 1
 k = np.pi*(np.sqrt(5)-1)
 
@@ -75,7 +84,7 @@ Nconfig = 200
 Nsweeps = 10
 
 Deltas = np.linspace(0, 4, 20)
-phi = 0#np.pi/4.
+phi = 10#np.pi/4.
 for i, Delta in enumerate(Deltas):
     print("configs for Delta = %.2f (%i/%i)"%(Delta, i+1, len(Deltas)))
     H = getH(Delta, phi)
@@ -95,5 +104,5 @@ for i, Delta in enumerate(Deltas):
             configs.append(loc.copy())
             labels.append(Delta)
 
-np.savetxt("train_configs_L_%i.txt" %N, configs, fmt='%.2e')
-np.savetxt("train_labels_L_%i.txt" %N, labels, fmt='%.2e')
+np.savetxt("configs_L_{0}_phi{1}.txt".format(N, phi), configs, fmt='%.2e')
+np.savetxt("labels_L_{0}_phi{1}.txt".format(N, phi), labels, fmt='%.2e')
