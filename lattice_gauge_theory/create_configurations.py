@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 N=16        #size of the system is NxN
 J=1.        #only parameter of the Hamiltonian
 
-N_low = 2   #number of configurations at low (=0) temperature
-N_high= 2   #number of configurations at high (=np.inf) temperature
+N_low = 1000   #number of configurations at low (=0) temperature
+N_high= 1000   #number of configurations at high (=np.inf) temperature
 
 def initialize():
     '''
@@ -185,6 +185,6 @@ for i in range(N_high*Nupdate):
         configs.append(np.reshape(spins.copy(), N*N*2))
         labels.append(1)
 
-np.savetxt("configs.txt", configs, fmt='%.2e')
-np.savetxt("labels.txt", labels, fmt='%.2e')
+np.savetxt("configs.txt", configs, fmt='%i')
+np.savetxt("labels.txt", labels, fmt='%i')
 
