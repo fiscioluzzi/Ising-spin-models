@@ -12,4 +12,3 @@ Finally, I have also added some files regarding the Aubry-Andre model (I know it
 Disclaimers:
 * First and foremost, this is me fooling around. So no guarantee for anything here.
 * The Monte Carlo sampling that I have implemented is very much ad-hoc. Should most certainly not be used for legitimate scientific computations.
-* I haven't managed to get the neural network to distinguish high- and low-temperature states for the square-ice model yet :(
